@@ -119,7 +119,6 @@ void DeleteLast(PPNODE first)
     }
 }
 
-
 void Display(PNODE first)
 {
     printf("\nNULL <=>");
@@ -147,9 +146,11 @@ int Count(PNODE first)
 
 void InsertAtPos(PPNODE first,int no,int pos)
 {
+    PNODE newn = NULL;
+
     int iSize = 0;
     int iCnt = 0;
-    PNODE newn = NULL;
+
     PNODE temp = NULL;
 
     iSize = Count(*first);
@@ -164,7 +165,7 @@ void InsertAtPos(PPNODE first,int no,int pos)
     {
         InsertFirst(first,no);
     }
-    else if(pos == iSize + 1)
+    else if(pos == iSize+1)
     {
         InsertLast(first,no);
     }
@@ -178,18 +179,29 @@ void InsertAtPos(PPNODE first,int no,int pos)
 
         temp = *first;
 
-        for(iCnt = 1; iCnt < pos-1; iCnt++)
+        for(iCnt = 1; iCnt <pos-1;iCnt++)
         {
             temp = temp->next;
         }
+
+
+        newn->next = temp->next;             // 1
+        temp->next->prev = newn;             // 2      $
+        temp->next = newn;                   // 3
+        newn->prev = temp;                   // 4      $
     }
+
 }
 
 void DeleteAtPos(PPNODE first,int pos)
 {
+    PNODE newn = NULL;
+
     int iSize = 0;
     int iCnt = 0;
+
     PNODE temp = NULL;
+    PNODE target = NULL;
 
     iSize = Count(*first);
 
@@ -210,13 +222,20 @@ void DeleteAtPos(PPNODE first,int pos)
     else
     {
         temp = *first;
-
-        for(iCnt = 1; iCnt < pos-1; iCnt++)
+        for(iCnt = 1; iCnt < pos-1;iCnt++)
         {
             temp = temp->next;
         }
+
+        target = temp->next;
+
+        temp->next = target->next;
+        temp->next->prev = temp;               // 2 $
+        free(target);
     }
 }
+
+
 
 
 int main()
@@ -249,6 +268,18 @@ int main()
 
     DeleteLast(&head);
     
+    Display(head);
+    iRet = Count(head);
+    printf("Number of nodes are %d \n",iRet);
+
+    InsertAtPos(&head,105,3);
+
+    Display(head);
+    iRet = Count(head);
+    printf("Number of nodes are %d \n",iRet);
+
+    DeleteAtPos(&head,3);
+
     Display(head);
     iRet = Count(head);
     printf("Number of nodes are %d \n",iRet);
