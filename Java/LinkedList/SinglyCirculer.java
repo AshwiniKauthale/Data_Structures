@@ -1,10 +1,10 @@
+// Singly Circular
 
 class node
 {
     public int data;
     public node next;
 
-    // Important
     public node(int no)
     {
         this.data = no;
@@ -12,16 +12,20 @@ class node
     }
 }
 
-class SinglyLL
+class SinglyCL
 {
     private node first;
+    private node last;
+    
     private int iCount;
 
-    public SinglyLL()
+    public SinglyCL()
     {
-        System.out.println("Object of SinglyLL gets created.");
+        System.out.println("Object of SinglyCL gets created.");
         
         this.first = null;
+        this.last = null;
+        
         this.iCount = 0;
     }
 
@@ -32,8 +36,18 @@ class SinglyLL
         // Chnged code
         newn = new node(no);
 
-        newn.next = this.first;
-        this.first = newn;
+        if((this.first == null) && (this.last == null))
+        {
+            this.first = newn;
+            this.last = newn;
+        }
+        else
+        {
+            newn.next = this.first;
+            this.first = newn;
+        }
+
+        this.last.next = this.first;
 
         this.iCount++;
     }
@@ -48,37 +62,82 @@ class SinglyLL
         if(this.first == null)
         {
             this.first = newn;
+            this.last = newn;
         }
         else
         {
-            temp = this.first;
+            this.last.next = newn;
+            last = newn;
+        }
+        this.last.next = this.first;
 
-            while(temp.next != null)
+        this.iCount++;
+    }
+
+    public void InsertAtPos(int no, int pos)
+    {
+        node newn = null;
+        node temp = null;
+        int iCnt = 0;
+
+        if(pos < 1 || pos > iCount + 1)
+        {
+            System.out.println("Invalid position");
+            return;
+        }
+
+        if(pos == 1)
+        {
+            InsertFirst(no);
+        }
+        else if(pos == iCount+1)
+        {
+            InsertLast(no);
+        }
+        else
+        {
+            newn = new node(no);
+
+            newn.data = no;
+            newn.next = null;
+
+            temp = first;
+
+            for(iCnt = 1;iCnt < pos-1; iCnt++)
             {
                 temp = temp.next;
             }
 
+            newn.next = temp.next;
             temp.next = newn;
         }
+        this.last.next = this.first;
 
         this.iCount++;
     }
 
     public void DeleteFirst()
     {
-        if(this.first == null)
+        node temp = null;
+
+        if((this.first == null) && (this.last == null))
         {
             return;
         }
-        else if(this.first.next == null)
+        else if((this.first == this.last))
         {
             this.first = null;
+            this.last = null;
         }
         else
         {
-            this.first = this.first.next;
-        }
+            temp = this.first;
 
+            this.first = this.first.next;
+
+            this.last.next = this.first;
+
+        }
         System.gc();
         this.iCount--;
     }
@@ -87,94 +146,41 @@ class SinglyLL
     {
         node temp = null;
 
-        if(this.first == null)
+        if((this.first == null) && (this.last == null))
         {
             return;
         }
-        else if(this.first.next == null)
+        else if((this.first == this.last))
         {
             this.first = null;
+            this.last = null;
         }
         else
         {
             temp = this.first;
 
-            while(temp.next.next != null)
+            while(temp.next !=last)
             {
                 temp = temp.next;
             }
+            this.last = temp;
 
-            temp.next = null;
+            this.last.next = this.first;
+
         }
-
         System.gc();
         this.iCount--;
-    }
-    
-    public void Display()
-    {
-        node temp = null;
-
-        temp = this.first;
-
-        while(temp != null)
-        {
-            System.out.print("| "+temp.data+" | -> ");
-            temp = temp.next;
-        }
-
-        System.out.println("null");
-    }
-
-    public int Count()
-    {
-        return this.iCount;
-    }
-
-    public void InsertAtPos(int no, int pos)
-    {
-        node temp = null;
-        int iCnt = 0;
-        node newn = null;
-
-        if(pos < 1 || pos > this.iCount+1)
-        {
-            System.out.println("Invalid position");
-            return;
-        }
-
-        if(pos == 1)
-        {
-            this.InsertFirst(no);
-        }
-        else if(pos == this.iCount+1)
-        {
-            this.InsertLast(no);
-        }
-        else
-        {
-            newn = new node(no);
-
-            temp = this.first;
-
-            for(iCnt = 1; iCnt < pos-1; iCnt++)
-            {
-                temp = temp.next;
-            }
-
-            newn.next = temp.next;
-            temp.next = newn;
-
-            this.iCount++;
-        }
     }
     
     public void DeleteAtPos(int pos)
     {
         node temp = null;
+        node target = null;
+
+
         int iCnt = 0;
 
-        if(pos < 1 || pos > this.iCount)
+        if(pos < 1 || pos > this.iCount + 1)
         {
             System.out.println("Invalid position");
             return;
@@ -184,7 +190,7 @@ class SinglyLL
         {
             this.DeleteFirst();
         }
-        else if(pos == this.iCount)
+        else if(pos == iCount+1)
         {
             this.DeleteLast();
         }
@@ -192,28 +198,45 @@ class SinglyLL
         {
             temp = this.first;
 
-            for(iCnt = 1; iCnt < pos-1; iCnt++)
+            for(iCnt = 1;iCnt < pos-1; iCnt++)
             {
                 temp = temp.next;
             }
-            
-            temp.next = temp.next.next;
 
+            target = temp.next;
+            temp.next = target.next;
+
+            this.last.next = this.first;
             System.gc();
-
             this.iCount--;
         }
+        
+    }
+    
+    public void Display()
+    {
+        do
+            {
+                System.out.print("| "+first.data+ "| -> ");
+                first = first.next;
+            }while(this.first != this.last.next);
+            System.out.println();
+    }
+
+    public int Count()
+    {
+        return this.iCount;
     }
 }
 
-class SinglyLinear
+class SinglyCirculer
 {
     public static void main(String A[])
     {
-        SinglyLL obj = null;
+        SinglyCL obj = null;
         int iRet = 0;
 
-        obj = new SinglyLL();
+        obj = new SinglyCL();
 
         obj.InsertFirst(51);
         obj.InsertFirst(21);
@@ -250,6 +273,7 @@ class SinglyLinear
         iRet = obj.Count();
 
         System.out.println("Number of nodes are : "+iRet);
+       
         obj.InsertAtPos(105,4);
 
         obj.Display();
@@ -257,6 +281,7 @@ class SinglyLinear
         iRet = obj.Count();
 
         System.out.println("Number of nodes are : "+iRet);
+       
         obj.DeleteAtPos(4);
         
         obj.Display();

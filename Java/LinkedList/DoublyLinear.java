@@ -1,27 +1,31 @@
+// Doubly Linear
 
 class node
 {
     public int data;
     public node next;
+    public node prev;
 
-    // Important
     public node(int no)
     {
         this.data = no;
         this.next = null;
+        this.prev = null;
     }
 }
 
-class SinglyLL
+class DoublyLL
 {
     private node first;
+    
     private int iCount;
 
-    public SinglyLL()
+    public DoublyLL()
     {
-        System.out.println("Object of SinglyLL gets created.");
+        System.out.println("Object of DoublyLL gets created.");
         
         this.first = null;
+        
         this.iCount = 0;
     }
 
@@ -29,11 +33,18 @@ class SinglyLL
     {
         node newn = null;
 
-        // Chnged code
         newn = new node(no);
 
-        newn.next = this.first;
-        this.first = newn;
+        if(this.first == null)
+        {
+            this.first = newn;
+        }
+        else
+        {
+            newn.next = this.first;
+            this.first.prev = newn;
+            this.first = newn;
+        }
 
         this.iCount++;
     }
@@ -59,76 +70,10 @@ class SinglyLL
             }
 
             temp.next = newn;
+            newn.prev = temp;
         }
 
         this.iCount++;
-    }
-
-    public void DeleteFirst()
-    {
-        if(this.first == null)
-        {
-            return;
-        }
-        else if(this.first.next == null)
-        {
-            this.first = null;
-        }
-        else
-        {
-            this.first = this.first.next;
-        }
-
-        System.gc();
-        this.iCount--;
-    }
-    
-    public void DeleteLast()
-    {
-        node temp = null;
-
-        if(this.first == null)
-        {
-            return;
-        }
-        else if(this.first.next == null)
-        {
-            this.first = null;
-        }
-        else
-        {
-            temp = this.first;
-
-            while(temp.next.next != null)
-            {
-                temp = temp.next;
-            }
-
-            temp.next = null;
-        }
-
-        System.gc();
-        this.iCount--;
-    }
-    
-    public void Display()
-    {
-        node temp = null;
-
-        temp = this.first;
-
-        while(temp != null)
-        {
-            System.out.print("| "+temp.data+" | -> ");
-            temp = temp.next;
-        }
-
-        System.out.println("null");
-    }
-
-    public int Count()
-    {
-        return this.iCount;
     }
 
     public void InsertAtPos(int no, int pos)
@@ -164,14 +109,65 @@ class SinglyLL
 
             newn.next = temp.next;
             temp.next = newn;
+            newn.prev = temp;
 
             this.iCount++;
         }
+    }
+
+    public void DeleteFirst()
+    {
+        node temp = null;
+
+        if(this.first == null)
+        {
+            return;
+        }
+        else if(this.first.next == null)
+        {
+            this.first = null;
+        }
+        else
+        {
+            this.first = this.first.next;
+            this.first.prev = null;
+        }
+        System.gc();
+        this.iCount--;
+    }
+    
+    public void DeleteLast()
+    {
+        node temp = null;
+
+        if(this.first == null)
+        {
+            return;
+        }
+        else if(this.first.next == null)
+        {
+            this.first = null;
+        }
+        else
+        {
+            temp = this.first;
+
+            while(temp.next.next != null)
+            {
+                temp = temp.next;
+            }
+
+            temp.next = null;
+        }
+        System.gc();
+        this.iCount--;
     }
     
     public void DeleteAtPos(int pos)
     {
         node temp = null;
+        node target = null;
+
         int iCnt = 0;
 
         if(pos < 1 || pos > this.iCount)
@@ -197,23 +193,45 @@ class SinglyLL
                 temp = temp.next;
             }
             
-            temp.next = temp.next.next;
+            target = temp.next.next;
+            temp.next = null;
+            temp.next = target;
 
             System.gc();
 
             this.iCount--;
         }
     }
+    
+    public void Display()
+    {
+        node temp = null;
+
+        temp = this.first;
+
+        while(temp != null)
+        {
+            System.out.print("| "+temp.data+" | <=> ");
+            temp = temp.next;
+        }
+
+        System.out.println("null");
+    }
+
+    public int Count()
+    {
+        return this.iCount;
+    }
 }
 
-class SinglyLinear
+class DoublyLinear
 {
     public static void main(String A[])
     {
-        SinglyLL obj = null;
+        DoublyLL obj = null;
         int iRet = 0;
 
-        obj = new SinglyLL();
+        obj = new DoublyLL();
 
         obj.InsertFirst(51);
         obj.InsertFirst(21);
