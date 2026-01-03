@@ -1,3 +1,5 @@
+// Singly Circular
+
 #include<iostream>
 using namespace std;
 
@@ -10,21 +12,23 @@ struct node
 typedef struct node NODE;
 typedef struct node* PNODE;
 
-class SinglyLL
+class SinglyCL
 {
-    private:        // IMPORTNAT
+    private:
         PNODE first;
+        PNODE last;
         int iCount;
 
     public:
-        SinglyLL()
+        SinglyCL()
         {
-            cout<<"Object of SinglyLL gets created.\n";
+            cout<<"Object of SinglyCL gets created.\n";
             this->first = NULL;
+            this->last = NULL;
             this->iCount = 0;
         }
 
-        void InsertFirst(int no)    // Updated
+        void InsertFirst(int no)
         {
             PNODE newn = NULL;
 
@@ -33,8 +37,17 @@ class SinglyLL
             newn->data = no;
             newn->next = NULL;
 
-            newn->next = this->first;
-            this->first = newn;
+            if((this->first == NULL) && (this->last == NULL))
+            {
+                this->first = newn;
+                this->last = newn;
+            }
+            else
+            {
+                newn->next = this->first;
+                this->first = newn;
+            }
+            this->last->next = this->first;
 
             this->iCount++;
         }
@@ -42,28 +55,24 @@ class SinglyLL
         void InsertLast(int no)
         {
             PNODE newn = NULL;
-            PNODE temp = NULL;
 
             newn = new NODE;
 
             newn->data = no;
             newn->next = NULL;
 
-            if(this->iCount == 0)     // Updated
+            if((this->first == NULL) && (this->last == NULL))
             {
                 this->first = newn;
+                this->last = newn;
             }
             else
             {
-                temp = this->first;
-
-                while(temp->next != NULL)
-                {
-                    temp = temp->next;
-                }
-
-                temp->next = newn;
+                this->last->next = newn;
+                this->last = newn;
             }
+            this->last->next = this->first;
+
             this->iCount++;
         }
 
@@ -71,23 +80,27 @@ class SinglyLL
         {
             PNODE temp = NULL;
 
-            if(this->first == NULL)
+            if((this->first == NULL) && (this->last == NULL))
             {
                 return;
             }
-            else if(this->first->next == NULL)    // else if(this->iCount == 1)
+            else if((this->first == this->last))
             {
-                delete this->first;
-                this->first = NULL;
+                delete first;
+                
+                first = NULL;
+                last = NULL;
             }
             else
             {
                 temp = this->first;
 
-                this->first = this->first -> next;
-                delete temp;
-            }
+                this->first = this->first->next;
 
+                delete temp;
+                this->last->next = this->first;
+
+            }
             this->iCount--;
         }
 
@@ -95,45 +108,42 @@ class SinglyLL
         {
             PNODE temp = NULL;
 
-            if(this->first == NULL)
+            if((this->first == NULL) && (this->last == NULL))
             {
                 return;
             }
-            else if(this->first->next == NULL)    // else if(this->iCount == 1)
+            else if((this->first == this->last))
             {
-                delete this->first;
-                this->first = NULL;
+                delete first;
+                
+                first = NULL;
+                last = NULL;
             }
             else
             {
                 temp = this->first;
 
-                while(temp->next->next != NULL)
+                while(temp->next !=last)
                 {
-                    temp = temp -> next;
+                    temp = temp->next;
                 }
 
                 delete temp->next;
-                temp->next = NULL;
-
+                this->last = temp;
+                this->last->next = this->first;
             }
             this->iCount--;
+
         }
 
         void Display()
         {
-            PNODE temp = NULL;
-            int iCnt = 0;
-
-            temp = this->first;
-
-            for(iCnt = 1; iCnt <= this->iCount; iCnt++)   // New code
+            do
             {
-                cout<<"| "<<temp->data<<" |-> ";
-                temp = temp->next;
-            }
-
-            cout<<"NULL\n";
+                cout<<"| "<<first->data<<" | -> ";
+                first = first->next;
+            }while(this->first != this->last->next);
+            cout<<"\n";
         }
 
         int Count()
@@ -143,12 +153,12 @@ class SinglyLL
 
         void InsertAtPos(int no, int pos)
         {
-            PNODE temp = NULL;
             PNODE newn = NULL;
+            PNODE temp = NULL;
 
             int iCnt = 0;
 
-            if(pos < 1 || pos > this->iCount + 1)
+            if(pos < 1 || pos > iCount + 1)
             {
                 cout<<"Invalid position\n";
                 return;
@@ -158,7 +168,7 @@ class SinglyLL
             {
                 this->InsertFirst(no);
             }
-            else if(pos == this->iCount+1)
+            else if(pos == iCount+1)
             {
                 this->InsertLast(no);
             }
@@ -169,28 +179,29 @@ class SinglyLL
                 newn->data = no;
                 newn->next = NULL;
 
-                temp = this->first;
-                
-                for(iCnt = 1; iCnt < pos-1; iCnt++)
+                temp = first;
+
+                for(iCnt = 1;iCnt < pos-1; iCnt++)
                 {
                     temp = temp->next;
                 }
 
                 newn->next = temp->next;
                 temp->next = newn;
-
-                this->iCount++;
             }
+            this->last->next = this->first;
+
+            this->iCount++;
         }
 
         void DeleteAtPos(int pos)
         {
-            PNODE temp = NULL;
-            PNODE target = NULL;
+            PNODE temp =NULL;
+            PNODE target =NULL;
 
             int iCnt = 0;
 
-            if(pos < 1 || pos > this->iCount)
+            if(pos < 1 || pos > iCount + 1)
             {
                 cout<<"Invalid position\n";
                 return;
@@ -200,32 +211,34 @@ class SinglyLL
             {
                 this->DeleteFirst();
             }
-            else if(pos == this->iCount)
+            else if(pos == iCount)
             {
                 this->DeleteLast();
             }
             else
             {
-                temp = this->first;
-                
-                for(iCnt = 1; iCnt < pos-1; iCnt++)
+                temp = first;
+
+                for(iCnt = 1;iCnt < pos-1; iCnt++)
                 {
                     temp = temp->next;
                 }
 
                 target = temp->next;
-
                 temp->next = target->next;
                 delete target;
+
+                this->last->next = this->first;
 
                 this->iCount--;
             }
         }
+
 };
 
 int main()
 {
-    SinglyLL obj;
+    SinglyCL obj;
     int iRet = 0;
 
     obj.InsertFirst(51);
@@ -233,7 +246,6 @@ int main()
     obj.InsertFirst(11);
 
     obj.Display();
-
     iRet = obj.Count();
     cout<<"Number of nodes are : "<<iRet<<"\n";
 
@@ -242,34 +254,30 @@ int main()
     obj.InsertLast(121);
     
     obj.Display();
-
     iRet = obj.Count();
     cout<<"Number of nodes are : "<<iRet<<"\n";
     
     obj.DeleteFirst();
-    obj.Display();
 
+    obj.Display();
     iRet = obj.Count();
     cout<<"Number of nodes are : "<<iRet<<"\n";
     
     obj.DeleteLast();
 
     obj.Display();
-
     iRet = obj.Count();
     cout<<"Number of nodes are : "<<iRet<<"\n";
     
     obj.InsertAtPos(105,4);
 
     obj.Display();
-
     iRet = obj.Count();
     cout<<"Number of nodes are : "<<iRet<<"\n";
     
     obj.DeleteAtPos(4);
 
     obj.Display();
-
     iRet = obj.Count();
     cout<<"Number of nodes are : "<<iRet<<"\n";
     

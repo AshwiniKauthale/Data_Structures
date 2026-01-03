@@ -1,3 +1,5 @@
+// Doubly Lieanr
+
 #include<iostream>
 using namespace std;
 
@@ -5,36 +7,46 @@ struct node
 {
     int data;
     struct node *next;
+    struct node *prev;
 };
 
 typedef struct node NODE;
 typedef struct node* PNODE;
 
-class SinglyLL
+class DoublyLL
 {
-    private:        // IMPORTNAT
+    private:
         PNODE first;
         int iCount;
 
     public:
-        SinglyLL()
+        DoublyLL()
         {
-            cout<<"Object of SinglyLL gets created.\n";
+            cout<<"Object of DoublyLL gets created.\n";
             this->first = NULL;
             this->iCount = 0;
         }
 
-        void InsertFirst(int no)    // Updated
+        void InsertFirst(int no)
         {
             PNODE newn = NULL;
 
             newn = new NODE;
 
             newn->data = no;
-            newn->next = NULL;
+            newn ->next = NULL;
+            newn->prev = NULL;
 
-            newn->next = this->first;
-            this->first = newn;
+            if(this->first == NULL)
+            {
+                this->first = newn;
+            }
+            else
+            {
+                newn->next = this->first;
+                this->first->prev = newn;
+                this->first = newn;
+            }
 
             this->iCount++;
         }
@@ -49,7 +61,7 @@ class SinglyLL
             newn->data = no;
             newn->next = NULL;
 
-            if(this->iCount == 0)     // Updated
+            if(this->first == NULL)
             {
                 this->first = newn;
             }
@@ -61,8 +73,9 @@ class SinglyLL
                 {
                     temp = temp->next;
                 }
-
+                
                 temp->next = newn;
+                newn->prev = temp;
             }
             this->iCount++;
         }
@@ -75,7 +88,7 @@ class SinglyLL
             {
                 return;
             }
-            else if(this->first->next == NULL)    // else if(this->iCount == 1)
+            else if(this->first->next == NULL)
             {
                 delete this->first;
                 this->first = NULL;
@@ -84,11 +97,12 @@ class SinglyLL
             {
                 temp = this->first;
 
-                this->first = this->first -> next;
+                this->first = this->first->next;
                 delete temp;
+                this->first->prev = NULL;
             }
-
             this->iCount--;
+
         }
 
         void DeleteLast()
@@ -99,7 +113,7 @@ class SinglyLL
             {
                 return;
             }
-            else if(this->first->next == NULL)    // else if(this->iCount == 1)
+            else if(this->first->next == NULL)
             {
                 delete this->first;
                 this->first = NULL;
@@ -107,14 +121,15 @@ class SinglyLL
             else
             {
                 temp = this->first;
+                int iCnt = 0;
 
-                while(temp->next->next != NULL)
+                for(iCnt = 1; iCnt <= iCount-1; iCnt++)
                 {
-                    temp = temp -> next;
+                    temp = temp->next;
                 }
 
                 delete temp->next;
-                temp->next = NULL;
+                temp->prev = NULL;
 
             }
             this->iCount--;
@@ -127,13 +142,13 @@ class SinglyLL
 
             temp = this->first;
 
-            for(iCnt = 1; iCnt <= this->iCount; iCnt++)   // New code
+            cout<<"\nNULL";
+            for(iCnt = 1; iCnt <= iCount; iCnt++)
             {
-                cout<<"| "<<temp->data<<" |-> ";
+                cout<<" | <=> | "<<temp->data;
                 temp = temp->next;
             }
-
-            cout<<"NULL\n";
+            cout<<" | <=> | NULL\n";
         }
 
         int Count()
@@ -143,14 +158,14 @@ class SinglyLL
 
         void InsertAtPos(int no, int pos)
         {
-            PNODE temp = NULL;
             PNODE newn = NULL;
+            PNODE temp = NULL;
 
             int iCnt = 0;
 
-            if(pos < 1 || pos > this->iCount + 1)
+            if(pos < 1 || pos > iCount +1)
             {
-                cout<<"Invalid position\n";
+                cout<<"Invalid position";
                 return;
             }
 
@@ -158,7 +173,7 @@ class SinglyLL
             {
                 this->InsertFirst(no);
             }
-            else if(pos == this->iCount+1)
+            else if(pos == iCount+1)
             {
                 this->InsertLast(no);
             }
@@ -170,15 +185,14 @@ class SinglyLL
                 newn->next = NULL;
 
                 temp = this->first;
-                
-                for(iCnt = 1; iCnt < pos-1; iCnt++)
+
+                for(iCnt = 1; iCnt < pos-1;iCnt++)
                 {
                     temp = temp->next;
                 }
-
                 newn->next = temp->next;
                 temp->next = newn;
-
+                newn->prev = temp;
                 this->iCount++;
             }
         }
@@ -190,9 +204,9 @@ class SinglyLL
 
             int iCnt = 0;
 
-            if(pos < 1 || pos > this->iCount)
+            if(pos < 1 || pos > iCount +1)
             {
-                cout<<"Invalid position\n";
+                cout<<"Invalid position";
                 return;
             }
 
@@ -200,24 +214,22 @@ class SinglyLL
             {
                 this->DeleteFirst();
             }
-            else if(pos == this->iCount)
+            else if(pos == iCount+1)
             {
                 this->DeleteLast();
             }
             else
             {
                 temp = this->first;
-                
-                for(iCnt = 1; iCnt < pos-1; iCnt++)
+
+                for(iCnt = 1; iCnt < pos-1;iCnt++)
                 {
                     temp = temp->next;
                 }
-
-                target = temp->next;
-
-                temp->next = target->next;
-                delete target;
-
+                
+                target = temp->next->next;
+                delete temp->next;
+                temp->next = target;
                 this->iCount--;
             }
         }
@@ -225,7 +237,7 @@ class SinglyLL
 
 int main()
 {
-    SinglyLL obj;
+    DoublyLL obj;
     int iRet = 0;
 
     obj.InsertFirst(51);
@@ -242,34 +254,30 @@ int main()
     obj.InsertLast(121);
     
     obj.Display();
-
     iRet = obj.Count();
     cout<<"Number of nodes are : "<<iRet<<"\n";
     
     obj.DeleteFirst();
-    obj.Display();
 
+    obj.Display();
     iRet = obj.Count();
     cout<<"Number of nodes are : "<<iRet<<"\n";
     
     obj.DeleteLast();
 
     obj.Display();
-
     iRet = obj.Count();
     cout<<"Number of nodes are : "<<iRet<<"\n";
     
     obj.InsertAtPos(105,4);
 
     obj.Display();
-
     iRet = obj.Count();
     cout<<"Number of nodes are : "<<iRet<<"\n";
     
     obj.DeleteAtPos(4);
 
     obj.Display();
-
     iRet = obj.Count();
     cout<<"Number of nodes are : "<<iRet<<"\n";
     

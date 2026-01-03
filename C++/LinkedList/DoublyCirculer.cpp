@@ -1,3 +1,5 @@
+// Doubly Circular
+
 #include<iostream>
 using namespace std;
 
@@ -5,26 +7,29 @@ struct node
 {
     int data;
     struct node *next;
+    struct node *prev;
 };
 
 typedef struct node NODE;
 typedef struct node* PNODE;
 
-class SinglyLL
+class DoublyCL
 {
-    private:        // IMPORTNAT
+    private:
         PNODE first;
+        PNODE last;
         int iCount;
 
     public:
-        SinglyLL()
+        DoublyCL()
         {
-            cout<<"Object of SinglyLL gets created.\n";
+            cout<<"Object of DoublyCL gets created.\n";
             this->first = NULL;
+            this->last = NULL;
             this->iCount = 0;
         }
 
-        void InsertFirst(int no)    // Updated
+        void InsertFirst(int no)
         {
             PNODE newn = NULL;
 
@@ -32,9 +37,22 @@ class SinglyLL
 
             newn->data = no;
             newn->next = NULL;
+            newn ->prev = NULL;
 
-            newn->next = this->first;
-            this->first = newn;
+            if((this->first == NULL) && (this->last == NULL))
+            {
+                this->first = newn;
+                this->last = newn;
+            }
+            else
+            {
+                newn->next = this->first;
+                this->first->prev = newn;
+                this->first = newn;
+            }
+
+            this->last->next = this->first;
+            this->first->prev = this->last;
 
             this->iCount++;
         }
@@ -48,45 +66,45 @@ class SinglyLL
 
             newn->data = no;
             newn->next = NULL;
+            newn->prev = NULL;
 
-            if(this->iCount == 0)     // Updated
+            if((this->first == NULL) && (this->last == NULL))
             {
                 this->first = newn;
+                this->last = newn;
             }
             else
             {
-                temp = this->first;
-
-                while(temp->next != NULL)
-                {
-                    temp = temp->next;
-                }
-
-                temp->next = newn;
+                this->last->next = newn;
+                newn->prev = this->last;
+                this->last = newn;
             }
+            this->last->next = this->first;
+            this->first->prev = this->last;
+
             this->iCount++;
         }
 
         void DeleteFirst()
         {
-            PNODE temp = NULL;
-
-            if(this->first == NULL)
+            if((this->first == NULL) && (this->last == NULL))
             {
                 return;
             }
-            else if(this->first->next == NULL)    // else if(this->iCount == 1)
+            else if(this->first == this->last)
             {
-                delete this->first;
+                delete first;
+
                 this->first = NULL;
+                this->last = NULL;
             }
             else
             {
-                temp = this->first;
-
-                this->first = this->first -> next;
-                delete temp;
+                this->first = this->first->next;
+                delete first->prev;
             }
+            this->last->next = this->first;
+            this->first->prev = this->last;
 
             this->iCount--;
         }
@@ -94,63 +112,67 @@ class SinglyLL
         void DeleteLast()
         {
             PNODE temp = NULL;
+            PNODE target = NULL;
 
-            if(this->first == NULL)
+            if((this->first == NULL) && (this->last == NULL))
             {
                 return;
             }
-            else if(this->first->next == NULL)    // else if(this->iCount == 1)
+            else if(this->first == this->last)
             {
-                delete this->first;
+                delete first;
+
                 this->first = NULL;
+                this->last = NULL;
             }
             else
             {
-                temp = this->first;
-
-                while(temp->next->next != NULL)
-                {
-                    temp = temp -> next;
-                }
-
-                delete temp->next;
-                temp->next = NULL;
-
+                this->last = this->last->prev;
+                delete this->last->next;
             }
+            this->last->next = this->first;
+            this->first->prev = this->last;
+            
             this->iCount--;
         }
 
         void Display()
         {
-            PNODE temp = NULL;
-            int iCnt = 0;
-
-            temp = this->first;
-
-            for(iCnt = 1; iCnt <= this->iCount; iCnt++)   // New code
+            if(first == NULL)
             {
-                cout<<"| "<<temp->data<<" |-> ";
-                temp = temp->next;
+                cout<<"Linked list is empty\n";
+                return;
             }
 
-            cout<<"NULL\n";
+            PNODE temp = first;
+
+            cout<<"<=>";
+            do
+            {
+                cout<<" | "<<temp->data<<" | <=>";
+                temp = temp->next;
+            } while(temp != first);
+
+            cout<<"\n";
         }
+
 
         int Count()
         {
-            return this->iCount;
+            return iCount;
         }
 
         void InsertAtPos(int no, int pos)
         {
-            PNODE temp = NULL;
             PNODE newn = NULL;
+            PNODE temp = NULL;
+            int iCnt = 0,iCount = 0;
 
-            int iCnt = 0;
+            iCount = Count();
 
             if(pos < 1 || pos > this->iCount + 1)
             {
-                cout<<"Invalid position\n";
+                cout <<"Invalid position\n";
                 return;
             }
 
@@ -158,41 +180,47 @@ class SinglyLL
             {
                 this->InsertFirst(no);
             }
-            else if(pos == this->iCount+1)
+            else if(pos == iCount + 1)
             {
                 this->InsertLast(no);
             }
             else
             {
                 newn = new NODE;
-
                 newn->data = no;
                 newn->next = NULL;
+                newn->prev = NULL;
 
                 temp = this->first;
-                
+
                 for(iCnt = 1; iCnt < pos-1; iCnt++)
                 {
                     temp = temp->next;
                 }
 
                 newn->next = temp->next;
+                temp->next->prev = newn;
                 temp->next = newn;
+                newn->prev = temp;
 
                 this->iCount++;
             }
+
+            this->first->prev = this->last;
+            this->last->next = this->first;
         }
 
+        
         void DeleteAtPos(int pos)
         {
             PNODE temp = NULL;
-            PNODE target = NULL;
+            int iCnt = 0,iCount = 0;
 
-            int iCnt = 0;
+            iCount = Count();
 
             if(pos < 1 || pos > this->iCount)
             {
-                cout<<"Invalid position\n";
+                cout <<"Invalid position\n";
                 return;
             }
 
@@ -200,32 +228,35 @@ class SinglyLL
             {
                 this->DeleteFirst();
             }
-            else if(pos == this->iCount)
+            else if(pos == iCount)
             {
                 this->DeleteLast();
             }
             else
             {
                 temp = this->first;
-                
+
                 for(iCnt = 1; iCnt < pos-1; iCnt++)
                 {
                     temp = temp->next;
                 }
 
-                target = temp->next;
-
-                temp->next = target->next;
-                delete target;
+                temp->next = temp->next->next;
+                delete temp->next->prev;
+                temp->next->prev = temp;
 
                 this->iCount--;
             }
+
+            this->first->prev = this->last;
+            this->last->next = this->first;
         }
+
 };
 
 int main()
 {
-    SinglyLL obj;
+    DoublyCL obj;
     int iRet = 0;
 
     obj.InsertFirst(51);
@@ -262,14 +293,12 @@ int main()
     obj.InsertAtPos(105,4);
 
     obj.Display();
-
     iRet = obj.Count();
     cout<<"Number of nodes are : "<<iRet<<"\n";
     
     obj.DeleteAtPos(4);
 
     obj.Display();
-
     iRet = obj.Count();
     cout<<"Number of nodes are : "<<iRet<<"\n";
     
