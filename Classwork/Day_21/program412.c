@@ -183,6 +183,10 @@ void InsertAtPos(PPNODE first, PPNODE last, int no, int pos)
 void DeleteAtPos(PPNODE first, PPNODE last, int pos)
 {
     int iCount = 0;
+    int i = 0;
+
+    PNODE temp = NULL;
+    PNODE target = NULL;
 
     iCount = Count(*first,*last);
 
@@ -202,7 +206,16 @@ void DeleteAtPos(PPNODE first, PPNODE last, int pos)
     }
     else
     {
-        
+        temp = *first;
+
+        for(i = 1; i<pos-1; i++)
+        {
+            temp = temp -> next;
+        }
+        target = temp->next;
+
+        temp->next = target->next;
+        free(target);
     }
 }
 
@@ -216,6 +229,13 @@ int main()
     InsertFirst(&head,&tail,51);
     InsertFirst(&head,&tail,21);
     InsertFirst(&head,&tail,11);
+
+    Display(head,tail);
+    
+    iRet = Count(head,tail);
+    printf("Number of nodes : %d\n",iRet);
+    
+    DeleteFirst(&head,&tail);
 
     InsertLast(&head,&tail,101);
     InsertLast(&head,&tail,111);
@@ -242,6 +262,13 @@ int main()
 
     InsertAtPos(&head,&tail,105,3);
     
+    Display(head,tail);
+    
+    iRet = Count(head,tail);
+    printf("Number of nodes : %d\n",iRet);  
+
+    DeleteAtPos(&head,&tail,3);
+
     Display(head,tail);
     
     iRet = Count(head,tail);
