@@ -33,7 +33,6 @@ void InsertFirst(PPNODE first,int no)
 }
 
 void InsertLast(PPNODE first,int no)
-
 {
     PNODE newn = NULL;
 
@@ -52,13 +51,25 @@ void InsertLast(PPNODE first,int no)
     }
 }
 
+void Display(PNODE first)
+{
+    while(first != NULL)
+    {
+        printf("%d\t",first->data);
+        first = first->next;
+    }
+    printf("\n");
+}
 int main()
 {
     PNODE head = NULL;
 
+    InsertFirst(&head,75);
     InsertFirst(&head,51);
     InsertFirst(&head,21);
     InsertFirst(&head,11);
+
+    Display(head);
 
     return 0;
 }
