@@ -138,12 +138,56 @@ int Count(PNODE first)
 
 void InsertAtPos(PPNODE first, int no,int pos)
 {
-    
+    int iSize = 0;
+
+    iSize = Count(*first);
+
+    if((pos <1) || (pos > iSize + 1))               // Filter
+    {
+        printf("Invalid position");
+
+        return;
+    }
+
+    if(pos == 1)
+    {
+        InsertFirst(first,no);
+    }
+    else if(pos == iSize + 1)
+    {
+        InsertLast(first,no);
+    }
+    else
+    {
+
+    }
 }
 
 void DeleteAtPos(PPNODE first, int pos)
 {
-    
+    int iSize = 0;
+
+    iSize = Count(*first);
+
+    if((pos <1) || (pos > iSize))               // Filter
+    {
+        printf("Invalid position");
+
+        return;
+    }
+
+    if(pos == 1)
+    {
+        DeleteFirst(first);
+    }
+    else if(pos == iSize)
+    {
+        DeleteLast(first);
+    }
+    else
+    {
+        
+    }
 }
 
 int main()
