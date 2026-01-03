@@ -24,7 +24,7 @@ class SinglyLL
             iCount = 0;
         }
 
-        void InsertFirst(int no)
+        void InsertFirst(int no)    // Updated
         {
             PNODE newn = NULL;
 
@@ -33,21 +33,16 @@ class SinglyLL
             newn->data = no;
             newn->next = NULL;
 
-            if(first == NULL)
-            {
-                first = newn;
-            }
-            else
-            {
-                newn->next = first;
-                first = newn;
-            }
+            newn->next = first;
+            first = newn;
+
             iCount++;
         }
 
         void InsertLast(int no)
         {
             PNODE newn = NULL;
+            PNODE temp = NULL;
 
             newn = new NODE;
 
@@ -60,7 +55,14 @@ class SinglyLL
             }
             else
             {
+                temp = first;
 
+                while(temp->next != NULL)
+                {
+                    temp = temp->next;
+                }
+
+                temp->next = newn;
             }
             iCount++;
         }
@@ -111,5 +113,14 @@ int main()
     iRet = obj.Count();
     cout<<"Number of nodes are : "<<iRet<<"\n";
 
+    obj.InsertLast(101);
+    obj.InsertLast(111);
+    obj.InsertLast(121);
+    
+    obj.Display();
+
+    iRet = obj.Count();
+    cout<<"Number of nodes are : "<<iRet<<"\n";
+    
     return 0;
 }
