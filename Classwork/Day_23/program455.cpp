@@ -1,32 +1,35 @@
 #include<iostream>
 using namespace std;
 
+template <class T>
 struct node
 {
-    int data;
-    struct node *next;
+    T data;
+    struct node<T> *next;
 };
 
+template <class T>
 class SinglyCLL
 {
     private:
-        struct node * first;
-        struct node * last;
+        struct node<T> * first;
+        struct node<T> * last;
         int iCount;
 
     public:
         SinglyCLL();
-        void InsertFirst(int no);
-        void InsertLast(int no);
+        void InsertFirst(T no);
+        void InsertLast(T no);
         void DeleteFirst();
         void DeleteLast();
         void Display();
         int Count();
         void DeleteAtPos(int pos);
-        void InsertAtPos(int no, int pos);
+        void InsertAtPos(T no, int pos);
 };
 
-SinglyCLL::SinglyCLL()
+template <class T>
+SinglyCLL<T>::SinglyCLL()
 {
     cout<<"Inside constructor of SinglyCLL\n";
 
@@ -35,11 +38,12 @@ SinglyCLL::SinglyCLL()
     this->iCount = 0;
 }
 
-void SinglyCLL::InsertFirst(int no)
+template <class T>
+void SinglyCLL<T>::InsertFirst(T no)
 {
-    struct node * newn = NULL;
+    struct node<T> * newn = NULL;
 
-    newn = new struct node;
+    newn = new struct node<T>;
 
     newn->data = no;
     newn->next = NULL;
@@ -62,11 +66,12 @@ void SinglyCLL::InsertFirst(int no)
     iCount++;
 }
 
-void SinglyCLL::InsertLast(int no)
+template <class T>
+void SinglyCLL<T>::InsertLast(T no)
 {
-    struct node * newn = NULL;
+    struct node<T> * newn = NULL;
 
-    newn = new struct node;
+    newn = new struct node<T>;
 
     newn->data = no;
     newn->next = NULL;
@@ -89,7 +94,8 @@ void SinglyCLL::InsertLast(int no)
     iCount++;
 }
 
-void SinglyCLL::DeleteFirst()
+template <class T>
+void SinglyCLL<T>::DeleteFirst()
 {
     if(first == NULL && last == NULL)
     {
@@ -112,9 +118,10 @@ void SinglyCLL::DeleteFirst()
     iCount--;
 }
 
-void SinglyCLL::DeleteLast()
+template <class T>
+void SinglyCLL<T>::DeleteLast()
 {
-    struct node * temp = NULL;
+    struct node<T> * temp = NULL;
 
     if(first == NULL && last == NULL)
     {
@@ -144,14 +151,15 @@ void SinglyCLL::DeleteLast()
     iCount--;
 }
 
-void SinglyCLL::Display()
+template <class T>
+void SinglyCLL<T>::Display()
 {
     if(first == NULL && last == NULL)
     {
         return;
     }
 
-    struct node * temp = first;
+    struct node<T> * temp = first;
 
     do
     {
@@ -162,15 +170,17 @@ void SinglyCLL::Display()
     cout<<"\n";
 }
 
-int SinglyCLL::Count()
+template <class T>
+int SinglyCLL<T>::Count()
 {
     return iCount;
 }
 
-void SinglyCLL::DeleteAtPos(int pos)
+template <class T>
+void SinglyCLL<T>::DeleteAtPos(int pos)
 {
-    struct node * temp = NULL;
-    struct node * target = NULL;
+    struct node<T> * temp = NULL;
+    struct node<T> * target = NULL;
     
     int i = 0;
     
@@ -206,10 +216,11 @@ void SinglyCLL::DeleteAtPos(int pos)
     }
 }
 
-void SinglyCLL::InsertAtPos(int no, int pos)
+template <class T>
+void SinglyCLL<T>::InsertAtPos(T no, int pos)
 {
-    struct node * temp = NULL;
-    struct node * newn = NULL;
+    struct node<T> * temp = NULL;
+    struct node<T> * newn = NULL;
 
     int i = 0;
 
@@ -229,7 +240,7 @@ void SinglyCLL::InsertAtPos(int no, int pos)
     }
     else
     {
-        newn = new struct node;
+        newn = new struct node<T>;
 
         newn->data = no;
         newn->next = NULL;
@@ -250,7 +261,7 @@ void SinglyCLL::InsertAtPos(int no, int pos)
 
 int main()
 {
-    SinglyCLL sobj;
+    SinglyCLL<int> sobj;
     int iRet = 0;
 
     sobj.InsertFirst(51);
