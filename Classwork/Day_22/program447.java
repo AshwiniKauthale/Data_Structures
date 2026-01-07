@@ -30,25 +30,198 @@ class SinglyCL
     }
 
     public void InsertFirst(int no)
-    {}
+    {
+        node newn = null;
+
+        // Chnged code
+        newn = new node(no);
+
+        if((this.first == null) && (this.last == null))
+        {
+            this.first = newn;
+            this.last = newn;
+        }
+        else
+        {
+            newn.next = this.first;
+            this.first = newn;
+        }
+
+        this.last.next = this.first;
+
+        this.iCount++;
+    }
 
     public void InsertLast(int no)
-    {}
+    {
+        node newn = null;
+        node temp = null;
+
+        newn = new node(no);
+
+        if(this.first == null)
+        {
+            this.first = newn;
+            this.last = newn;
+        }
+        else
+        {
+            this.last.next = newn;
+            last = newn;
+        }
+        this.last.next = this.first;
+
+        this.iCount++;
+    }
 
     public void InsertAtPos(int no, int pos)
-    {}
+    {
+        node newn = null;
+        node temp = null;
+        int iCnt = 0;
+
+        if(pos < 1 || pos > iCount + 1)
+        {
+            System.out.println("Invalid position");
+            return;
+        }
+
+        if(pos == 1)
+        {
+            InsertFirst(no);
+        }
+        else if(pos == iCount+1)
+        {
+            InsertLast(no);
+        }
+        else
+        {
+            newn = new node(no);
+
+            newn.data = no;
+            newn.next = null;
+
+            temp = first;
+
+            for(iCnt = 1;iCnt < pos-1; iCnt++)
+            {
+                temp = temp.next;
+            }
+
+            newn.next = temp.next;
+            temp.next = newn;
+        }
+        this.last.next = this.first;
+
+        this.iCount++;
+    }
 
     public void DeleteFirst()
-    {}
+    {
+        node temp = null;
+
+        if((this.first == null) && (this.last == null))
+        {
+            return;
+        }
+        else if((this.first == this.last))
+        {
+            this.first = null;
+            this.last = null;
+        }
+        else
+        {
+            temp = this.first;
+
+            this.first = this.first.next;
+
+            this.last.next = this.first;
+
+        }
+        System.gc();
+        this.iCount--;
+    }
     
     public void DeleteLast()
-    {}
+    {
+        node temp = null;
+
+        if((this.first == null) && (this.last == null))
+        {
+            return;
+        }
+        else if((this.first == this.last))
+        {
+            this.first = null;
+            this.last = null;
+        }
+        else
+        {
+            temp = this.first;
+
+            while(temp.next !=last)
+            {
+                temp = temp.next;
+            }
+            this.last = temp;
+
+            this.last.next = this.first;
+
+        }
+        System.gc();
+        this.iCount--;
+    }
     
     public void DeleteAtPos(int pos)
-    {}
+    {
+        node temp = null;
+        node target = null;
+
+
+        int iCnt = 0;
+
+        if(pos < 1 || pos > this.iCount + 1)
+        {
+            System.out.println("Invalid position");
+            return;
+        }
+
+        if(pos == 1)
+        {
+            this.DeleteFirst();
+        }
+        else if(pos == iCount+1)
+        {
+            this.DeleteLast();
+        }
+        else
+        {
+            temp = this.first;
+
+            for(iCnt = 1;iCnt < pos-1; iCnt++)
+            {
+                temp = temp.next;
+            }
+
+            target = temp.next;
+            temp.next = target.next;
+
+            this.last.next = this.first;
+            System.gc();
+            this.iCount--;
+        }
+        
+    }
     
     public void Display()
-    {}
+    {
+        do
+            {
+                System.out.print("| "+first.data+ "| -> ");
+                first = first.next;
+            }while(this.first != this.last.next);
+            System.out.println();
+    }
 
     public int Count()
     {

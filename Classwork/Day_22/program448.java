@@ -1,4 +1,3 @@
-// Complete Singly Linear
 
 class node
 {
