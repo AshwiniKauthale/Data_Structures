@@ -6,10 +6,10 @@
 ----------------------------------------------------------------------------------------------------
 Type                    Name of class for node                  Name of class for Functionality
 ----------------------------------------------------------------------------------------------------
-Singly Linear           SinglyLLLnode                            SinglyLLL           Done
-Singly Circuler         SinglyCLLnode                            SinglyCLL           Done
-Doubly Linear           DoublyLLLnode                            DoublyLLL           Done
-DoublyCirculer          DoublyCLLnode                            DoublyCLL           Done
+Singly Linear           SinglyLLLnode                            SinglyLLL
+Singly Circuler         SinglyCLLnode                            SinglyCLL
+Doubly Linear           DoublyLLLnode                            DoublyLLL
+DoublyCirculer          DoublyCLLnode                            DoublyCLL
 ----------------------------------------------------------------------------------------------------
 */
 
@@ -55,17 +55,6 @@ class SinglyLLL
         void InsertAtPos(T,int);
         void DeleteAtPos(int);
 };
-
-//////////////////////////////////////////////////////////////////////////////
-//
-//    Function Name :    InsertFirst
-//    Input :            Data of node
-//    Output :           Nothing
-//    Description :      Use to insert node at first position
-//    Author :           Ashwini Vishnu Kauthale
-//    Data :             06/01/2026
-//
-//////////////////////////////////////////////////////////////////////////////
 
 template<class T>
 SinglyLLL<T> :: SinglyLLL()
