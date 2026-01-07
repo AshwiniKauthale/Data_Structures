@@ -44,38 +44,42 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    DisplayPerfect
+//    Function Name :    DisplayPrime
 //    Input :            Address of first node
-//    Output :           Display perfect numbers
-//    Description :      Use to display perfect numbers from linked list
+//    Output :           Display Prime number
+//    Description :      used to find out prime numbers from linked list
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             04/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-int DisplayPerfect(PNODE first)
+int DisplayPrime(PNODE first)
 {
     int iCnt = 0;
-    int iSum = 0;
+    int iCount = 0;
 
-    printf("Perfect numbers in linklist are : ");
+    printf("Prime numbers in linklist are : ");
 
     while(first != NULL)
     {
-        iSum = 0;
-        for(iCnt = 1;iCnt <= first->Data/2;iCnt++)
+        iCount = 0;
+        if(first->Data > 1)
         {
-            if((first->Data % iCnt) == 0)
+            for(iCnt = 2;iCnt <= first->Data/2;iCnt++)
             {
-                iSum = iSum + iCnt;
+                if((first->Data % iCnt) == 0)
+                {
+                    iCount++;
+                    break;
+                }
             }
-        }
-
-        if(iSum == first->Data)
-        {
-            printf("%d ",first->Data);
-        }
+            if(iCount == 0)
+            {
+                printf("%d ",first->Data);
+            }
         first = first->next;
+        }
+    
     }
     printf("\n");
     return 0;
@@ -90,20 +94,20 @@ int main()
     PNODE head = NULL;
     int iRet = 0;
     InsertFirst(&head,89);
-    InsertFirst(&head,6);
+    InsertFirst(&head,22);
     InsertFirst(&head,41);
     InsertFirst(&head,17);
-    InsertFirst(&head,28);
+    InsertFirst(&head,20);
     InsertFirst(&head,11);
 
-    DisplayPerfect(head);
+    DisplayPrime(head);
 
     return 0;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-//           Input  Linked List : | 11 |->| 28 |->| 17 |->| 41 |->| 6 |->| 89 |
-//           Output             :  6  28
+//           Input  Linked List : | 11 |->| 20 |->| 17 |->| 41 |->| 22 |->| 89 |
+//           Output             :  11  17  41  89
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////

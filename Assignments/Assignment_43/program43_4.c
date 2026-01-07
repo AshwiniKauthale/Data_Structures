@@ -44,43 +44,50 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    DisplayPerfect
+//    Function Name :    SecMaximum
 //    Input :            Address of first node
-//    Output :           Display perfect numbers
-//    Description :      Use to display perfect numbers from linked list
+//    Output :           Return second maximum element
+//    Description :      Use to find out second maximum element from linked list
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             04/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-int DisplayPerfect(PNODE first)
+int SecMaximum(PNODE first)
 {
-    int iCnt = 0;
-    int iSum = 0;
+    int iMax, iSecMax;
 
-    printf("Perfect numbers in linklist are : ");
-
-    while(first != NULL)
+    if (first == NULL || first->next == NULL)
     {
-        iSum = 0;
-        for(iCnt = 1;iCnt <= first->Data/2;iCnt++)
-        {
-            if((first->Data % iCnt) == 0)
-            {
-                iSum = iSum + iCnt;
-            }
-        }
-
-        if(iSum == first->Data)
-        {
-            printf("%d ",first->Data);
-        }
-        first = first->next;
+        return -1;
     }
-    printf("\n");
-    return 0;
-}
 
+    iMax = first->Data;
+    PNODE temp = first;
+
+    while (temp != NULL)
+    {
+        if (temp->Data > iMax)
+        {
+            iMax = temp->Data;
+        }
+        temp = temp->next;
+    }
+
+    iSecMax = -1;
+    temp = first;
+
+    while (temp != NULL)
+    {
+        if ((temp->Data < iMax) && (temp->Data > iSecMax))
+        {
+            iSecMax = temp->Data;
+        }
+        temp = temp->next;
+    }
+
+    return iSecMax;
+}
 ///////////////////////////////////////////////////////////////////////////////////
 //    Entry Point function
 ///////////////////////////////////////////////////////////////////////////////////
@@ -89,21 +96,21 @@ int main()
 {
     PNODE head = NULL;
     int iRet = 0;
-    InsertFirst(&head,89);
-    InsertFirst(&head,6);
-    InsertFirst(&head,41);
-    InsertFirst(&head,17);
-    InsertFirst(&head,28);
-    InsertFirst(&head,11);
 
-    DisplayPerfect(head);
+    InsertFirst(&head,240);
+    InsertFirst(&head,320);
+    InsertFirst(&head,230);
+    InsertFirst(&head,110);
 
+    iRet = SecMaximum(head);
+
+    printf("Second Largest elements is : %d",iRet);
     return 0;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-//           Input  Linked List : | 11 |->| 28 |->| 17 |->| 41 |->| 6 |->| 89 |
-//           Output             :  6  28
+//           Input  Linked List : | 110 |->| 230 |->| 322 |->| 240 |
+//           Output             :  240
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
