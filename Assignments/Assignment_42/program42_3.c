@@ -14,7 +14,7 @@ typedef struct node** PPNODE;
 ///////////////////////////////////////////////////////////////////////////////////
 //
 //    Function Name :    InsertFirst
-//    Input :            Data of node and Address of first element
+//    Input :            Data of node and Address of first node
 //    Output :           Nothing
 //    Description :      Use to insert node at first position
 //    Author :           Ashwini Vishnu Kauthale
@@ -44,28 +44,24 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    SearchFirstOcc
-//    Input :            Data of node and Address of first element
-//    Output :           Return position of that element
-//    Description :      Use to search first Occurance of given element
+//    Function Name :    Addition
+//    Input :            Address of first node
+//    Output :           return addition of all elements
+//    Description :      Use to Add the values of all nodes
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             04/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-int SearchFirstOcc(PNODE first,int no)
+int Addition(PNODE first)
 {
-    int iPos = 1;
+    int iSum = 0;
     while(first != NULL)
     {
-        if(first->Data == no)
-        {
-            return iPos;
-        }
+        iSum = iSum + (first->Data);
         first = first->next;
-        iPos++;
     }
-    return 0;
+    return iSum;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -77,37 +73,21 @@ int main()
     PNODE head = NULL;
     int iRet = 0;
 
-    InsertFirst(&head,70);
-    InsertFirst(&head,30);
-    InsertFirst(&head,50);
     InsertFirst(&head,40);
     InsertFirst(&head,30);
     InsertFirst(&head,20);
     InsertFirst(&head,10);
 
-    int element = 0;
+    iRet = Addition(head);
 
-    printf("Enter element you want to search : ");
-    scanf("%d",&element);
-
-    iRet = SearchFirstOcc(head,element);
-
-    if(iRet == 0)
-    {
-        printf("Element is not found\n");
-    }
-    else
-    {
-        printf("Element fount at position : %d",iRet);
-    }
-
+    printf("Addition of all elements is : %d",iRet);
     return 0;
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-//           Input  Linked List : | 10 |->| 20 |->| 30 |->| 40 |->| 50 |->| 30 |->| 70 |
-//           Input Element      :  30
-//           Output             :  3
+//           Input  Linked List : | 10 |->| 20 |->| 30 |->| 40 |
+//           Output             :  100
 //
-////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+

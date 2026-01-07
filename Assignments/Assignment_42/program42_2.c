@@ -14,7 +14,7 @@ typedef struct node** PPNODE;
 ///////////////////////////////////////////////////////////////////////////////////
 //
 //    Function Name :    InsertFirst
-//    Input :            Data of node and Address of first element
+//    Input :            Data of node and Address of firstnode
 //    Output :           Nothing
 //    Description :      Use to insert node at first position
 //    Author :           Ashwini Vishnu Kauthale
@@ -44,28 +44,29 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    SearchFirstOcc
-//    Input :            Data of node and Address of first element
-//    Output :           Return position of that element
-//    Description :      Use to search first Occurance of given element
+//    Function Name :    SearchLastOcc
+//    Input :            Data of node and Address of fiest node
+//    Output :           Return the last position of element
+//    Description :      Use to display last occurance of element
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             04/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-int SearchFirstOcc(PNODE first,int no)
+int SearchLastOcc(PNODE first,int no)
 {
     int iPos = 1;
+    int iLastPos = 0;
     while(first != NULL)
     {
         if(first->Data == no)
         {
-            return iPos;
+            iLastPos = iPos;
         }
         first = first->next;
         iPos++;
     }
-    return 0;
+    return iLastPos;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -90,7 +91,7 @@ int main()
     printf("Enter element you want to search : ");
     scanf("%d",&element);
 
-    iRet = SearchFirstOcc(head,element);
+    iRet = SearchLastOcc(head,element);
 
     if(iRet == 0)
     {
@@ -104,10 +105,10 @@ int main()
     return 0;
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 //           Input  Linked List : | 10 |->| 20 |->| 30 |->| 40 |->| 50 |->| 30 |->| 70 |
 //           Input Element      :  30
-//           Output             :  3
+//           Output             :  6
 //
-////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
