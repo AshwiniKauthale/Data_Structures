@@ -44,26 +44,27 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    DisplayOdd
-//    Input :            Address of first node
-//    Output :           Print Odd elements
-//    Description :      Use to find out Odd elements from linked list
+//    Function Name :    CountGreater
+//    Input :            Data of node and Addresss of first node
+//    Output :           Integer
+//    Description :      Use to Count element greater than given elemenet
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             05/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-void DisplayOdd(PNODE first)
+int CountGreater(PNODE first,int no)
 {
     int iCount = 0;
     while(first != NULL)
     {
-        if((first->Data % 2) != 0)
+        if(first->Data > no)
         {
-            printf("%d ",first->Data);
+            iCount++;
         }
         first = first->next;
     }
+    return iCount;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -73,6 +74,7 @@ void DisplayOdd(PNODE first)
 int main()
 {
     PNODE head = NULL;
+    int iRet = 0;
 
     InsertFirst(&head,11);
     InsertFirst(&head,30);
@@ -82,7 +84,14 @@ int main()
     InsertFirst(&head,20);
     InsertFirst(&head,11);
 
-    DisplayOdd(head);
+    int element = 0;
+
+    printf("Enter number : \n");
+    scanf("%d",&element);
+
+    iRet = CountGreater(head,element);
+
+    printf("elements grater than %d are : %d",element,iRet);
 
     return 0;
 }

@@ -44,26 +44,28 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    DisplayOdd
-//    Input :            Address of first node
-//    Output :           Print Odd elements
-//    Description :      Use to find out Odd elements from linked list
+//    Function Name :    FirstOccur
+//    Input :            Data of node and Address of first node
+//    Output :           Integer
+//    Description :      Use to find out first occurance of given element
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             05/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-void DisplayOdd(PNODE first)
+int FirstOccur(PNODE first,int no)
 {
-    int iCount = 0;
+    int iPos = 1;
     while(first != NULL)
     {
-        if((first->Data % 2) != 0)
+        if(first->Data == no)
         {
-            printf("%d ",first->Data);
+            return iPos;
         }
+        iPos++;
         first = first->next;
     }
+    return 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -73,6 +75,7 @@ void DisplayOdd(PNODE first)
 int main()
 {
     PNODE head = NULL;
+    int iRet = 0;
 
     InsertFirst(&head,11);
     InsertFirst(&head,30);
@@ -82,7 +85,21 @@ int main()
     InsertFirst(&head,20);
     InsertFirst(&head,11);
 
-    DisplayOdd(head);
+    int element = 0;
+
+    printf("Enter element you want to find\n");
+    scanf("%d",&element);
+
+    iRet = FirstOccur(head,element);
+
+    if(iRet == 0)
+    {
+        printf("Element is not found\n");
+    }
+    else
+    {
+        printf("First Occured at Position : %d",iRet);
+    }
 
     return 0;
 }
