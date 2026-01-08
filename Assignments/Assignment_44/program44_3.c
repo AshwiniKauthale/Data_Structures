@@ -1,11 +1,5 @@
 #include<stdio.h>
-#include<stdbool.h>
 #include<stdlib.h>
-
-#define TRUE 1
-#define FALSE 0
-
-typedef int BOOL;
 
 struct node
 {
@@ -50,26 +44,27 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    Search
-//    Input :            Data of node and Address of first node
-//    Output :           Boolean
-//    Description :      Use to given number is present or not
+//    Function Name :    CountOdd
+//    Input :            Address of first node
+//    Output :           Integer
+//    Description :      Use to count odd numbers from linked list
 //    Author :           Ashwini Vishnu Kauthale
-//    Data :             06/01/2026
+//    Data :             05/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-bool Search(PNODE first,int no)
+int CountOdd(PNODE first)
 {
+    int iCount = 0;
     while(first != NULL)
     {
-        if(first->Data == no)
+        if((first->Data % 2) != 0)
         {
-            return true;
+            iCount++;
         }
         first = first->next;
     }
-    return false;
+    return iCount;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -83,27 +78,17 @@ int main()
 
     InsertFirst(&head,70);
     InsertFirst(&head,30);
-    InsertFirst(&head,50);
+    InsertFirst(&head,51);
     InsertFirst(&head,40);
-    InsertFirst(&head,30);
+    InsertFirst(&head,37);
     InsertFirst(&head,20);
-    InsertFirst(&head,10);
+    InsertFirst(&head,11);
 
-    int element = 0;
+    iRet = CountOdd(head);
 
-    printf("Enter element you want to search : ");
-    scanf("%d",&element);
-
-    iRet = Search(head,element);
-
-    if(iRet == true)
-    {
-        printf("Element is found\n");
-    }
-    else
-    {
-        printf("Element is not found\n");
-    }
+    printf("Total odd numbers are : %d",iRet);
 
     return 0;
 }
+
+

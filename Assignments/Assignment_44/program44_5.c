@@ -1,11 +1,5 @@
 #include<stdio.h>
-#include<stdbool.h>
 #include<stdlib.h>
-
-#define TRUE 1
-#define FALSE 0
-
-typedef int BOOL;
 
 struct node
 {
@@ -50,26 +44,26 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    Search
-//    Input :            Data of node and Address of first node
-//    Output :           Boolean
-//    Description :      Use to given number is present or not
+//    Function Name :    DisplayEven
+//    Input :            Address of first node
+//    Output :           Print Even elements
+//    Description :      Use to find out even elements from linked list
 //    Author :           Ashwini Vishnu Kauthale
-//    Data :             06/01/2026
+//    Data :             05/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-bool Search(PNODE first,int no)
+void DisplayEven(PNODE first)
 {
+    int iCount = 0;
     while(first != NULL)
     {
-        if(first->Data == no)
+        if((first->Data % 2) == 0)
         {
-            return true;
+            printf("%d ",first->Data);
         }
         first = first->next;
     }
-    return false;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -79,31 +73,18 @@ bool Search(PNODE first,int no)
 int main()
 {
     PNODE head = NULL;
-    int iRet = 0;
 
-    InsertFirst(&head,70);
+    InsertFirst(&head,11);
     InsertFirst(&head,30);
-    InsertFirst(&head,50);
-    InsertFirst(&head,40);
-    InsertFirst(&head,30);
+    InsertFirst(&head,51);
+    InsertFirst(&head,11);
+    InsertFirst(&head,37);
     InsertFirst(&head,20);
-    InsertFirst(&head,10);
+    InsertFirst(&head,11);
 
-    int element = 0;
-
-    printf("Enter element you want to search : ");
-    scanf("%d",&element);
-
-    iRet = Search(head,element);
-
-    if(iRet == true)
-    {
-        printf("Element is found\n");
-    }
-    else
-    {
-        printf("Element is not found\n");
-    }
+    DisplayEven(head);
 
     return 0;
 }
+
+
