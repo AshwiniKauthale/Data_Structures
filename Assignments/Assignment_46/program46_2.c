@@ -44,22 +44,22 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    DisplayGreater
+//    Function Name :    DisplayLess
 //    Input :            Data of node and Address of first node
 //    Output :           Integer
-//    Description :      Use to Display elements greater then given element
+//    Description :      Use to Display elements less then given element
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             05/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-void DisplayGreater(PNODE first,int no)
+void DisplayLess(PNODE first,int no)
 {
-    printf("Element greater than %d are : \n",no);
+    printf("Element Less than %d are : \n",no);
 
     while(first != NULL)
     {
-        if(first->Data > no)
+        if(first->Data < no)
         {
             printf("%d ",first->Data);
         }
@@ -88,7 +88,7 @@ int main()
     printf("Enter number : \n");
     scanf("%d",&element);
 
-    DisplayGreater(head,element);
+    DisplayLess(head,element);
 
     return 0;
 }

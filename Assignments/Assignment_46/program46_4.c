@@ -1,6 +1,5 @@
 #include<stdio.h>
 #include<stdlib.h>
-
 struct node
 {
     int Data;
@@ -44,22 +43,24 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    DisplayGreater
-//    Input :            Data of node and Address of first node
+//    Function Name :    ReplaceNegative
+//    Input :            Address of first node
 //    Output :           Integer
-//    Description :      Use to Display elements greater then given element
+//    Description :      Use to replace negative element to 0
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             05/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-void DisplayGreater(PNODE first,int no)
+void ReplaceNegative(PNODE first)
 {
-    printf("Element greater than %d are : \n",no);
-
     while(first != NULL)
     {
-        if(first->Data > no)
+        if(first->Data < 0)
+        {
+            printf("%d ",0);
+        }
+        else
         {
             printf("%d ",first->Data);
         }
@@ -71,24 +72,20 @@ void DisplayGreater(PNODE first,int no)
 //    Entry Point function
 ///////////////////////////////////////////////////////////////////////////////////
 
+
 int main()
 {
     PNODE head = NULL;
 
-    InsertFirst(&head,11);
+    InsertFirst(&head,-11);
     InsertFirst(&head,30);
-    InsertFirst(&head,51);
+    InsertFirst(&head,-51);
     InsertFirst(&head,11);
-    InsertFirst(&head,37);
+    InsertFirst(&head,-37);
     InsertFirst(&head,20);
     InsertFirst(&head,11);
 
-    int element = 0;
-
-    printf("Enter number : \n");
-    scanf("%d",&element);
-
-    DisplayGreater(head,element);
+    ReplaceNegative(head);
 
     return 0;
 }

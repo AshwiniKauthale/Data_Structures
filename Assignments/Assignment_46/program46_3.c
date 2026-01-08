@@ -1,5 +1,10 @@
 #include<stdio.h>
+#include<stdbool.h>
 #include<stdlib.h>
+#define TRUE 1
+#define FALSE 0
+
+typedef int BOOL;
 
 struct node
 {
@@ -44,27 +49,22 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    DisplayGreater
-//    Input :            Data of node and Address of first node
-//    Output :           Integer
-//    Description :      Use to Display elements greater then given element
+//    Function Name :    IsEmpty
+//    Input :            Address of first node
+//    Output :           Boolean
+//    Description :      Use to find out linked list is empty or not
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             05/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-void DisplayGreater(PNODE first,int no)
+bool IsEmpty(PNODE first)
 {
-    printf("Element greater than %d are : \n",no);
-
-    while(first != NULL)
+    if(first == NULL)
     {
-        if(first->Data > no)
-        {
-            printf("%d ",first->Data);
-        }
-        first = first->next;
+        return true;
     }
+    return false;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -74,6 +74,7 @@ void DisplayGreater(PNODE first,int no)
 int main()
 {
     PNODE head = NULL;
+    bool bRet = 0;
 
     InsertFirst(&head,11);
     InsertFirst(&head,30);
@@ -83,12 +84,16 @@ int main()
     InsertFirst(&head,20);
     InsertFirst(&head,11);
 
-    int element = 0;
+    bRet = IsEmpty(head);
 
-    printf("Enter number : \n");
-    scanf("%d",&element);
-
-    DisplayGreater(head,element);
+    if(bRet == true)
+    {
+        printf("Linked list is empty\n");
+    }
+    else
+    {
+        printf("Linked list is not empty\n");
+    }
 
     return 0;
 }

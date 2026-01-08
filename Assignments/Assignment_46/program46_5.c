@@ -1,6 +1,5 @@
 #include<stdio.h>
 #include<stdlib.h>
-
 struct node
 {
     int Data;
@@ -44,25 +43,21 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    DisplayGreater
-//    Input :            Data of node and Address of first node
+//    Function Name :    IncrementAll
+//    Input :            Address of first node
 //    Output :           Integer
-//    Description :      Use to Display elements greater then given element
+//    Description :      Use to increment value od node by 1
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             05/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-void DisplayGreater(PNODE first,int no)
+void IncrementAll(PNODE first)
 {
-    printf("Element greater than %d are : \n",no);
-
     while(first != NULL)
     {
-        if(first->Data > no)
-        {
-            printf("%d ",first->Data);
-        }
+        first->Data++;
+        printf("%d ",first->Data);
         first = first->next;
     }
 }
@@ -83,12 +78,7 @@ int main()
     InsertFirst(&head,20);
     InsertFirst(&head,11);
 
-    int element = 0;
-
-    printf("Enter number : \n");
-    scanf("%d",&element);
-
-    DisplayGreater(head,element);
+    IncrementAll(head);
 
     return 0;
 }
