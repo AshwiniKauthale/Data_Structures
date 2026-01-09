@@ -43,22 +43,22 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    ReplaceEven
+//    Function Name :    ReplaceOdd
 //    Input :            Address of first node
 //    Output :           Integer
-//    Description :      Use to replace even numbers to 0
+//    Description :      Use to replace Odd numbers to 1
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             06/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-void ReplaceEven(PNODE first)
+void ReplaceOdd(PNODE first)
 {
     while(first != NULL)
     {
-        if((first->Data % 2) == 0)
+        if((first->Data % 2) != 0)
         {
-            printf("%d ",0);
+            printf("%d ",1);
             first = first->next;
         }
         else
@@ -85,9 +85,7 @@ int main()
     InsertFirst(&head,7);
     InsertFirst(&head,18);
 
-    ReplaceEven(head);
+    ReplaceOdd(head);
 
     return 0;
 }
-
-

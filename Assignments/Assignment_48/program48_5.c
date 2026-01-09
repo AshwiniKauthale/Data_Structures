@@ -43,30 +43,30 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    ReplaceEven
+//    Function Name :    DisplayOddPosition
 //    Input :            Address of first node
 //    Output :           Integer
-//    Description :      Use to replace even numbers to 0
+//    Description :      Use to display element at odd position
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             06/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-void ReplaceEven(PNODE first)
+void DisplayOddPosition(PNODE first)
 {
+    int iPos = 1;
+    printf("Elements at odd positions are : ");
+
     while(first != NULL)
     {
-        if((first->Data % 2) == 0)
-        {
-            printf("%d ",0);
-            first = first->next;
-        }
-        else
+        if((iPos % 2) != 0)
         {
             printf("%d ",first->Data);
-            first = first->next;
         }
+        first = first->next;
+        iPos++;
     }
+    
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -85,7 +85,7 @@ int main()
     InsertFirst(&head,7);
     InsertFirst(&head,18);
 
-    ReplaceEven(head);
+    DisplayOddPosition(head);
 
     return 0;
 }

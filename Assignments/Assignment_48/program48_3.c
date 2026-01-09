@@ -43,29 +43,21 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    ReplaceEven
+//    Function Name :    MutiplyByTwo
 //    Input :            Address of first node
 //    Output :           Integer
-//    Description :      Use to replace even numbers to 0
+//    Description :      Use to multiply each node by 2
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             06/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-void ReplaceEven(PNODE first)
+void MultiplyByTwo(PNODE first)
 {
     while(first != NULL)
     {
-        if((first->Data % 2) == 0)
-        {
-            printf("%d ",0);
-            first = first->next;
-        }
-        else
-        {
-            printf("%d ",first->Data);
-            first = first->next;
-        }
+        printf("%d ",first->Data * 2);
+        first = first->next;
     }
 }
 
@@ -85,7 +77,7 @@ int main()
     InsertFirst(&head,7);
     InsertFirst(&head,18);
 
-    ReplaceEven(head);
+    MultiplyByTwo(head);
 
     return 0;
 }
