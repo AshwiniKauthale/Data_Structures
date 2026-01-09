@@ -43,55 +43,33 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    Count
-//    Input :            Nothing
+//    Function Name :    CountDigits
+//    Input :            Address of first node
 //    Output :           Integer
-//    Description :      Use to count the nodes from linked list
+//    Description :      Use to count digits of each node
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             06/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-int Count(PNODE first)
+void CountDigits(PNODE first)
 {
+    int iDigit = 0;
+    int iNo = 0;
     int iCount = 0;
 
     while(first != NULL)
     {
-        iCount++;
-        first = first->next;
-    }
-    return iCount;
-}
-
-///////////////////////////////////////////////////////////////////////////////////
-//
-//    Function Name :    DisplayReverse
-//    Input :            Address of first node
-//    Output :           Integer
-//    Description :      Use to reverse the linked list
-//    Author :           Ashwini Vishnu Kauthale
-//    Data :             06/01/2026
-//
-/////////////////////////////////////////////////////////////////////////////////////
-
-void DisplayReverse(PNODE first)
-{
-    int i= 0,j = 0;
-    int iSize = 0;
-    iSize = Count(first);
-    PNODE temp = NULL;
-
-    temp = first;
-
-    for(i = iSize-1;i >= 0;i--)
-    {
-        temp = first;
-        for(j = 0; j < i; j++)
+        iCount = 0;
+        iNo = first->Data;
+        while(iNo != 0)
         {
-            temp = temp->next;
+            iDigit = iNo % 10;
+            iCount++;
+            iNo = iNo / 10;
         }
-        printf("%d ",temp->Data);
+        printf("%d ",iCount);
+        first = first->next;
     }
 }
 
@@ -103,15 +81,15 @@ int main()
 {
     PNODE head = NULL;
 
-    InsertFirst(&head,11);
+    InsertFirst(&head,1);
     InsertFirst(&head,30);
-    InsertFirst(&head,51);
+    InsertFirst(&head,521);
     InsertFirst(&head,11);
     InsertFirst(&head,37);
-    InsertFirst(&head,20);
-    InsertFirst(&head,11);
+    InsertFirst(&head,2067);
+    InsertFirst(&head,1111);
 
-    DisplayReverse(head);
+    CountDigits(head);
 
     return 0;
 }

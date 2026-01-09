@@ -43,56 +43,45 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    Count
-//    Input :            Nothing
+//    Function Name :    CountPrime
+//    Input :            Address of first node
 //    Output :           Integer
-//    Description :      Use to count the nodes from linked list
+//    Description :      Use to count prime numbers from linked list
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             06/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-int Count(PNODE first)
+int CountPrime(PNODE first)
 {
-    int iCount = 0;
-
+    printf("Prime numbers in Linked list are : ");
+    int iCnt = 0;
+    int iNo = 0;
+    int iCount= 0;
+    int iFlag = 0;
     while(first != NULL)
     {
-        iCount++;
+        iNo = first->Data;
+        iFlag = 0;
+        if(iNo > 1)
+        {
+        for(iCnt = 2; iCnt <= iNo/2; iCnt++)
+        {
+            if((iNo % iCnt) == 0)
+            {
+                iFlag = 1;
+                break;
+            }
+        }
+
+        if(iFlag == 0)
+        {
+            iCount++;
+        }
+        }
         first = first->next;
     }
     return iCount;
-}
-
-///////////////////////////////////////////////////////////////////////////////////
-//
-//    Function Name :    DisplayReverse
-//    Input :            Address of first node
-//    Output :           Integer
-//    Description :      Use to reverse the linked list
-//    Author :           Ashwini Vishnu Kauthale
-//    Data :             06/01/2026
-//
-/////////////////////////////////////////////////////////////////////////////////////
-
-void DisplayReverse(PNODE first)
-{
-    int i= 0,j = 0;
-    int iSize = 0;
-    iSize = Count(first);
-    PNODE temp = NULL;
-
-    temp = first;
-
-    for(i = iSize-1;i >= 0;i--)
-    {
-        temp = first;
-        for(j = 0; j < i; j++)
-        {
-            temp = temp->next;
-        }
-        printf("%d ",temp->Data);
-    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -102,16 +91,19 @@ void DisplayReverse(PNODE first)
 int main()
 {
     PNODE head = NULL;
+    int iRet = 0;
 
-    InsertFirst(&head,11);
+    InsertFirst(&head,15);
     InsertFirst(&head,30);
-    InsertFirst(&head,51);
+    InsertFirst(&head,23);
     InsertFirst(&head,11);
     InsertFirst(&head,37);
-    InsertFirst(&head,20);
-    InsertFirst(&head,11);
+    InsertFirst(&head,7);
+    InsertFirst(&head,18);
 
-    DisplayReverse(head);
+    iRet = CountPrime(head);
+
+    printf("Total prime numbers are : %d",iRet);
 
     return 0;
 }
