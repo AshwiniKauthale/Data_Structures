@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+
 struct node
 {
     int Data;
@@ -43,35 +44,39 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    Difference
+//    Function Name :    CountTwoDigit
 //    Input :            Address of first node
 //    Output :           Integer
-//    Description :      Use to find difference between maximum and minimum element
+//    Description :      Use to Count two digits nodes from linked list
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             06/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-int Difference(PNODE first)
+int CountTwoDigit(PNODE first)
 {
-    int iMax = first->Data;
-    int iMin = first->Data;
-    int iAns = 0;
+    int iCount = 0;
+    int iCountTwo = 0;
+    int iNo = 0;
+    int iDigit = 0;
     while(first != NULL)
     {
-        if(iMax < first->Data)
+        iCount = 0;
+        iNo = first->Data;
+        while(iNo != 0)
         {
-            iMax = first->Data;
+            iDigit = iNo % 10;
+            iCount++;
+            iNo = iNo / 10;
         }
-        if(iMin > first->Data)
+
+        if(iCount == 2)
         {
-            iMin = first->Data;
+            iCountTwo++;
         }
         first = first->next;
     }
-
-    iAns = iMax - iMin;
-    return iAns;
+    return iCountTwo;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -83,17 +88,16 @@ int main()
     PNODE head = NULL;
     int iRet = 0;
 
-    InsertFirst(&head,15);
+    InsertFirst(&head,16);
     InsertFirst(&head,70);
-    InsertFirst(&head,23);
-    InsertFirst(&head,11);
-    InsertFirst(&head,37);
-    InsertFirst(&head,7);
+    InsertFirst(&head,24);
+    InsertFirst(&head,155);
+    InsertFirst(&head,329);
+    InsertFirst(&head,200);
     InsertFirst(&head,18);
 
-    iRet = Difference(head);
-
-    printf("Difference is : %d",iRet);
+    iRet = CountTwoDigit(head);
+    printf("Two digit number is : %d",iRet);
 
     return 0;
 }

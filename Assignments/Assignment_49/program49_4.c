@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+
 struct node
 {
     int Data;
@@ -43,35 +44,29 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    Difference
+//    Function Name :    CountDivByFive
 //    Input :            Address of first node
 //    Output :           Integer
-//    Description :      Use to find difference between maximum and minimum element
+//    Description :      Use to Count element divisible by Five
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             06/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-int Difference(PNODE first)
+int CountDivByFive(PNODE first)
 {
-    int iMax = first->Data;
-    int iMin = first->Data;
-    int iAns = 0;
+    int iCount = 0;
+    int iNo = 0;
     while(first != NULL)
     {
-        if(iMax < first->Data)
+        iNo = first->Data;
+        if((iNo % 5) == 0)
         {
-            iMax = first->Data;
-        }
-        if(iMin > first->Data)
-        {
-            iMin = first->Data;
+            iCount++;
         }
         first = first->next;
     }
-
-    iAns = iMax - iMin;
-    return iAns;
+    return iCount;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -83,17 +78,16 @@ int main()
     PNODE head = NULL;
     int iRet = 0;
 
-    InsertFirst(&head,15);
+    InsertFirst(&head,16);
     InsertFirst(&head,70);
-    InsertFirst(&head,23);
-    InsertFirst(&head,11);
-    InsertFirst(&head,37);
-    InsertFirst(&head,7);
+    InsertFirst(&head,24);
+    InsertFirst(&head,15);
+    InsertFirst(&head,32);
+    InsertFirst(&head,20);
     InsertFirst(&head,18);
 
-    iRet = Difference(head);
-
-    printf("Difference is : %d",iRet);
+    iRet = CountDivByFive(head);
+    printf("Number of element divisible by five is : %d",iRet);
 
     return 0;
 }

@@ -1,5 +1,7 @@
 #include<stdio.h>
+#include<stdbool.h>
 #include<stdlib.h>
+
 struct node
 {
     int Data;
@@ -43,35 +45,29 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    Difference
+//    Function Name :    CheckAllPositive
 //    Input :            Address of first node
-//    Output :           Integer
-//    Description :      Use to find difference between maximum and minimum element
+//    Output :           Boolean
+//    Description :      Use to find out all elements are positive or not
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             06/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-int Difference(PNODE first)
+bool CheckAllPositive(PNODE first)
 {
-    int iMax = first->Data;
-    int iMin = first->Data;
-    int iAns = 0;
+    int iNo = 0;
     while(first != NULL)
     {
-        if(iMax < first->Data)
+        iNo = first->Data;
+        if((iNo % 2) != 0)
         {
-            iMax = first->Data;
-        }
-        if(iMin > first->Data)
-        {
-            iMin = first->Data;
+            return false;
         }
         first = first->next;
     }
 
-    iAns = iMax - iMin;
-    return iAns;
+    return true;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -81,19 +77,26 @@ int Difference(PNODE first)
 int main()
 {
     PNODE head = NULL;
-    int iRet = 0;
+    bool bRet = 0;
 
-    InsertFirst(&head,15);
+    InsertFirst(&head,16);
     InsertFirst(&head,70);
-    InsertFirst(&head,23);
-    InsertFirst(&head,11);
-    InsertFirst(&head,37);
-    InsertFirst(&head,7);
+    InsertFirst(&head,24);
+    InsertFirst(&head,12);
+    InsertFirst(&head,32);
+    InsertFirst(&head,2);
     InsertFirst(&head,18);
 
-    iRet = Difference(head);
+    bRet = CheckAllPositive(head);
 
-    printf("Difference is : %d",iRet);
+    if(bRet == true)
+    {
+        printf(" All elements are positive \n");
+    }
+    else
+    {
+        printf("All elements are not positive \n");
+    }
 
     return 0;
 }
