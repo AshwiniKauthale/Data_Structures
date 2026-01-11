@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<stdbool.h>
 #include<stdlib.h>
 
 struct node
@@ -44,31 +45,33 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    MakeAbsolute
+//    Function Name :    CheckSorted
 //    Input :            Address of first node
-//    Output :           Integer
-//    Description :      Use to replace node with its absolute value
+//    Output :           Boolean
+//    Description :      Use to check linked list is sorted or not
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             07/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-void MakeAbsolute(PNODE first)
+bool CheckSorted(PNODE first)
 {
+    int ifirst = first->Data;
     int iNo = 0;
     while(first != NULL)
     {
         iNo = first->Data;
-        if(first->Data < 0)
+        if(iNo >= ifirst)
         {
-            printf("%d ",-first->Data);
+            ifirst = iNo;
         }
         else
         {
-            printf("%d ",first->Data);
+            return false;
         }
         first = first->next;
     }
+    return true;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -78,16 +81,26 @@ void MakeAbsolute(PNODE first)
 int main()
 {
     PNODE head = NULL;
+    bool bRet = false;
 
-    InsertFirst(&head,-16);
+    InsertFirst(&head,162);
     InsertFirst(&head,70);
-    InsertFirst(&head,-24);
-    InsertFirst(&head,155);
-    InsertFirst(&head,329);
-    InsertFirst(&head,-200);
+    InsertFirst(&head,40);
+    InsertFirst(&head,35);
+    InsertFirst(&head,32);
+    InsertFirst(&head,2);
     InsertFirst(&head,18);
 
-    MakeAbsolute(head);
+    bRet = CheckSorted(head);
+
+    if(bRet == true)
+    {
+        printf("Linked list is sorted\n");
+    }
+    else
+    {
+        printf("Linked list is not sorted\n");
+    }
 
     return 0;
 }

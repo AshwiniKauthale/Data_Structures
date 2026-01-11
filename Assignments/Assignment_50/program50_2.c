@@ -44,28 +44,38 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    MakeAbsolute
+//    Function Name :    DisplayGreaterThanAvg
 //    Input :            Address of first node
 //    Output :           Integer
-//    Description :      Use to replace node with its absolute value
+//    Description :      Use to find out elements greater then average value of nodes
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             07/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-void MakeAbsolute(PNODE first)
+void DisplayGreaterThanAvg(PNODE first)
 {
+    int iAvg = 0;
+    int iSum = 0;
+    int iCount = 0;
     int iNo = 0;
+    PNODE temp = first;
+    while(temp != NULL)
+    {
+        iNo = temp->Data;
+        iSum = iSum + temp->Data;
+        iCount++;
+        temp = temp->next;
+    }
+
+    iAvg = iSum / iCount;
+
     while(first != NULL)
     {
         iNo = first->Data;
-        if(first->Data < 0)
+        if(iNo > iAvg)
         {
-            printf("%d ",-first->Data);
-        }
-        else
-        {
-            printf("%d ",first->Data);
+            printf("%d ",iNo);
         }
         first = first->next;
     }
@@ -79,15 +89,15 @@ int main()
 {
     PNODE head = NULL;
 
-    InsertFirst(&head,-16);
-    InsertFirst(&head,70);
-    InsertFirst(&head,-24);
-    InsertFirst(&head,155);
-    InsertFirst(&head,329);
-    InsertFirst(&head,-200);
+    InsertFirst(&head,16);
+    InsertFirst(&head,17);
+    InsertFirst(&head,24);
+    InsertFirst(&head,35);
+    InsertFirst(&head,32);
+    InsertFirst(&head,25);
     InsertFirst(&head,18);
 
-    MakeAbsolute(head);
+    DisplayGreaterThanAvg(head);
 
     return 0;
 }

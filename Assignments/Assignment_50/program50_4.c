@@ -44,30 +44,21 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    MakeAbsolute
+//    Function Name :    DisplayAlternate
 //    Input :            Address of first node
-//    Output :           Integer
-//    Description :      Use to replace node with its absolute value
+//    Output :           Display Alternate node
+//    Description :      Use to Display alternate nodes
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             07/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-void MakeAbsolute(PNODE first)
+void DisplayAlternate(PNODE first)
 {
-    int iNo = 0;
     while(first != NULL)
     {
-        iNo = first->Data;
-        if(first->Data < 0)
-        {
-            printf("%d ",-first->Data);
-        }
-        else
-        {
-            printf("%d ",first->Data);
-        }
-        first = first->next;
+        printf("%d   __  ",first->Data);
+        first = first->next->next; 
     }
 }
 
@@ -79,15 +70,14 @@ int main()
 {
     PNODE head = NULL;
 
-    InsertFirst(&head,-16);
     InsertFirst(&head,70);
-    InsertFirst(&head,-24);
-    InsertFirst(&head,155);
-    InsertFirst(&head,329);
-    InsertFirst(&head,-200);
+    InsertFirst(&head,40);
+    InsertFirst(&head,35);
+    InsertFirst(&head,32);
+    InsertFirst(&head,2);
     InsertFirst(&head,18);
 
-    MakeAbsolute(head);
+    DisplayAlternate(head);
 
     return 0;
 }

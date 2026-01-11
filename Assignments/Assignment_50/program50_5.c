@@ -44,30 +44,32 @@ void InsertFirst(PPNODE first,int no)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
-//    Function Name :    MakeAbsolute
-//    Input :            Address of first node
-//    Output :           Integer
-//    Description :      Use to replace node with its absolute value
+//    Function Name :    Display
+//    Input :            Address of first node and and position
+//    Output :           Display node
+//    Description :      Use to find out node at given position
 //    Author :           Ashwini Vishnu Kauthale
 //    Data :             07/01/2026
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-void MakeAbsolute(PNODE first)
+void Display(PNODE first,int no)
 {
+    int iPos = 0;
     int iNo = 0;
     while(first != NULL)
     {
         iNo = first->Data;
-        if(first->Data < 0)
+        iPos++;
+        if(iPos == no)
         {
-            printf("%d ",-first->Data);
-        }
-        else
-        {
-            printf("%d ",first->Data);
+            printf("Element at Position %d is : %d",no,first->Data);
         }
         first = first->next;
+    }
+    if((no > iPos) || (no < 1))
+    {
+        printf("Invalid Position\n");
     }
 }
 
@@ -79,15 +81,19 @@ int main()
 {
     PNODE head = NULL;
 
-    InsertFirst(&head,-16);
     InsertFirst(&head,70);
-    InsertFirst(&head,-24);
-    InsertFirst(&head,155);
-    InsertFirst(&head,329);
-    InsertFirst(&head,-200);
+    InsertFirst(&head,40);
+    InsertFirst(&head,35);
+    InsertFirst(&head,32);
+    InsertFirst(&head,2);
     InsertFirst(&head,18);
 
-    MakeAbsolute(head);
+    int iPos = 0;
+
+    printf("Enter the Position : \n");
+    scanf("%d",&iPos);
+
+    Display(head,iPos);
 
     return 0;
 }
