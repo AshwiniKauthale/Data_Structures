@@ -77,11 +77,13 @@ class QueueX
     }
 
         temp = this.first;
+        System.out.print("| ");
         while(temp != null)
         {
-            System.out.println("|   "+temp.data+"    |");
+            System.out.print(temp.data+" | -|");
             temp = temp.next;
         }
+        System.out.println();
     }
 
     public int Count()
@@ -116,4 +118,6 @@ class Queue
         System.out.println("Number of elements are : "+iRet);
     }
 }
+
+
 
