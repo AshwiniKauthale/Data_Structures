@@ -69,7 +69,7 @@ void Display(PNODE first)
 
     while(first != NULL)
     {
-        printf("|   %d     |\n",first->data);
+        printf("|   %d     |",first->data);
         first = first->next;
     }
 }
