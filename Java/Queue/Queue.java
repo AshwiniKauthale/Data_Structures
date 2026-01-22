@@ -65,8 +65,8 @@ class QueueX
         this.iCount--;
         if(iCount == 0)
         {
-            this->first = NULL;
-            this->last = NULL;
+            this.first = NULL;
+            this.last = NULL;
         }
         return Value;
     }
